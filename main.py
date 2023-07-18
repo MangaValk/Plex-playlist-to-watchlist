@@ -9,7 +9,7 @@ import requests
 
 def getPlaylistId(plexUrl, plexToken):
     playlistsLink = "%s/playlists?X-Plex-Token=%s" % (plexUrl, plexToken)
-    f = urllib.urlopen(playlistsLink)
+    f = urllib.request.urlopen(playlistsLink)
     parsed_html = BeautifulSoup(f.read(), 'xml')
     playlists = {}
     for playlist in parsed_html.find_all("Playlist"):
@@ -28,12 +28,12 @@ def getPlaylistId(plexUrl, plexToken):
         if selectedPlaylistKey in playlists.keys():
             break
 
-        print "invalid playlist key!"
+        print('invalid playlist key!')
     return selectedPlaylistKey
 
 def getAllShowIdentifiersFromPlaylist(plexUrl, plexToken, playlistId):
     playlistLink = "%s/playlists/%s/items?X-Plex-Token=%s" % (plexUrl, playlistId, plexToken)
-    f = urllib.urlopen(playlistLink)
+    f = urllib.request.urlopen(playlistLink)
     parsed_html = BeautifulSoup(f.read(), 'xml')
     playlistShowIdentifiers = [];
     for videos in parsed_html.find_all("Video"):
@@ -50,15 +50,15 @@ def getAllShowIdentifiersFromPlaylist(plexUrl, plexToken, playlistId):
     return list(set(playlistShowIdentifiers))
 
 
-plexUrl = input("please enter plex url (example: 127.0.0.1:32400):")
+plexUrl = "http://10.1.0.139:32400"
 
-plexToken = input("please enter plex token (see: https://www.plexopedia.com/plex-media-server/general/plex-token/):")
+plexUrl = input("Enter Plex URL - (Example: http://127.0.0.1:32400): Be sure to include http:// ")
 
-playlistId = getPlaylistId(plexUrl, plexToken)
+plexToken = input("Enter Plex Token (See: https://www.plexopedia.com/plex-media-server/general/plex-token/):")
 
 playlistShowIdentifiers = getAllShowIdentifiersFromPlaylist(plexUrl, plexToken, playlistId)
 
-print playlistShowIdentifiers
+print(playlistShowIdentifiers)
 
 #  https://curlconverter.com/
 headers = {
