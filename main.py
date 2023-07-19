@@ -50,8 +50,6 @@ def getAllShowIdentifiersFromPlaylist(plexUrl, plexToken, playlistId):
     return list(set(playlistShowIdentifiers))
 
 
-plexUrl = "http://10.1.0.139:32400"
-
 plexUrl = input("Enter Plex URL - (Example: http://127.0.0.1:32400): Be sure to include http:// ")
 
 plexToken = input("Enter Plex Token (See: https://www.plexopedia.com/plex-media-server/general/plex-token/):")
